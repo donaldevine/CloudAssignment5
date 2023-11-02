@@ -23,8 +23,8 @@ exports.getcomments = onRequest(async (request, response) => {
     response.send(commentsData);
 });
 
-exports.postcomment = onRequest(async (request, response) => {
-    logger.info("postcomment called", {structuredData: true});
+exports.postcomments = onRequest(async (request, response) => {
+    logger.info("postcomments called", {structuredData: true});
     const db = getFirestore();
     const {name, comment} = request.body;
     await db.collection("comments").add({name, comment});

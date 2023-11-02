@@ -6,7 +6,7 @@ async function getComments() {
 
 async function postComment(data) {
     try {
-        const response = await fetch("https://us-central1-assignment5-23205918.cloudfunctions.net/postcomment", {
+        const response = await fetch("https://us-central1-assignment5-23205918.cloudfunctions.net/postcomments", {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",
