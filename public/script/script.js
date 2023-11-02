@@ -21,15 +21,20 @@ async function postComment(data) {
     }
 }
 
-
 var commentsForm = document.getElementById("commentsForm");
 
 commentsForm.addEventListener("submit", (e) => {
-   e.preventDefault();
+    e.preventDefault();
 
-   let comment = document.getElementById("comment");
+    let comment = document.getElementById("comment");
 
-   if (comment.value){
-       postComment(comment);
-   }
+    if (comment.value){
+        
+        let data = {
+            name: "comment",
+            comment: comment.value
+        }
+
+        postComment(data);
+    }
 });
