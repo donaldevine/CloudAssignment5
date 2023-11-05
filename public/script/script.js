@@ -1,7 +1,8 @@
-const functionsBaseUrl = "https://us-central1-assignment5-23205918.cloudfunctions.net"
+//const functionsBaseUrl = "https://us-central1-assignment5-23205918.cloudfunctions.net/"
+const functionsBaseUrl = "http://127.0.0.1:5001/assignment5-23205918/us-central1/"
 
 async function getComments() {
-    const response = await fetch(functionsBaseUrl + "/getcomments");
+    const response = await fetch(functionsBaseUrl + "getcomments");
     const comments = await response.json();
     console.log(comments);
     return comments;
@@ -9,7 +10,7 @@ async function getComments() {
 
 async function postComment(data) {
     try {
-        const response = await fetch(functionsBaseUrl + "/postcomments", {
+        const response = await fetch(functionsBaseUrl + "postcomments", {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",
@@ -63,13 +64,8 @@ commentsForm.addEventListener("submit", (e) => {
         }
 
         postComment(data).then(r => {
-            toastSuccess();
+            loadComments();
         });
     }
 });
-
-var toastSuccess = function () {
-    let toast = document.querySelector('.toast');
-    toast.show();
-}
 
