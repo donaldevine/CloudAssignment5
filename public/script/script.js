@@ -29,6 +29,57 @@ var loadComments = function () {
     getComments().then((comments) =>
         {
             console.log(comments);
+
+            if(!comments) return;
+
+            const commentsDiv = document.getElementById('comments');
+
+            commentsDiv.innerHTML = '';
+
+            let i = 0;
+
+            let markupToAdd = '';
+
+            comments.forEach((item, index) =>
+            {
+                let rowStart = '';
+                let rowEnd = '';
+
+                if(index === 0)
+                {
+                    rowStart = "<div class='row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4'>";
+                }
+
+                if(index > 0 && index % 4 === 0)
+                {
+                    rowStart = "</div><div class='row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4'>";
+                }
+
+                if(index === comments.length)
+                {
+                    rowEnd = "</div>";
+                }
+
+                const markup = `
+                    ${rowStart}
+                    <div class="col">
+                        <div class="card box-shadow">
+                         <h5 class="card-header">Comment</h5>
+                          <div class="card-body">
+                            <h5 class="card-title">Comment</h5>
+                            <p class="card-text">${item.comment}</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>                        
+                          </div>
+                        </div>                
+                    </div>
+                    ${rowEnd}
+                `;
+
+                markupToAdd += markup;
+
+            });
+
+            commentsDiv.innerHTML += markupToAdd;
         }
     )
 };
@@ -65,6 +116,7 @@ commentsForm.addEventListener("submit", (e) => {
 
         postComment(data).then(r => {
             loadComments();
+            comment.value = '';
         });
     }
 });
