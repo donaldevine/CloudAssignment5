@@ -1,17 +1,15 @@
-//const functionsBaseUrl = "https://us-central1-assignment5-23205918.cloudfunctions.net/"
-const functionsBaseUrl = "http://127.0.0.1:5001/assignment5-23205918/us-central1/"
+const functionsBaseUrl = "https://us-central1-assignment5-23205918.cloudfunctions.net/"
+//const functionsBaseUrl = "http://127.0.0.1:5001/assignment5-23205918/us-central1/"
 
 async function getComments() {
     const response = await fetch(functionsBaseUrl + "getcomments");
-    const comments = await response.json();
-    console.log(comments);
-    return comments;
+    return await response.json();
 }
 
 async function postComment(data) {
     try {
         const response = await fetch(functionsBaseUrl + "postcomments", {
-            method: "POST", // or 'PUT'
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -60,15 +58,20 @@ var loadComments = function () {
                     rowEnd = "</div>";
                 }
 
+                const fireBaseTime = new Date(
+                    item.timestamp._seconds * 1000
+                );
+
+                const atTime = fireBaseTime.toLocaleTimeString();
+
                 const markup = `
                     ${rowStart}
                     <div class="col">
                         <div class="card box-shadow">
                          <h5 class="card-header">Comment</h5>
-                          <div class="card-body">
-                            <h5 class="card-title">Comment</h5>
+                          <div class="card-body">                            
                             <p class="card-text">${item.comment}</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>                        
+                            <p class="card-text"><small class="text-muted">${atTime}</small></p>                        
                           </div>
                         </div>                
                     </div>
